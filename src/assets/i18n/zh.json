@@ -1,0 +1,41 @@
+{
+  "LANGUAGE": "Chinese Language",
+  "LANGUAGES": [
+    {
+      "ID": "ar",
+      "VALUE": "阿拉伯"
+    },
+    {
+      "ID": "bn",
+      "VALUE": "孟加拉"
+    },
+    {
+      "ID": "en",
+      "VALUE": "英语"
+    },
+    {
+      "ID": "es",
+      "VALUE": "西班牙语"
+    },
+    {
+      "ID": "fr",
+      "VALUE": "法国"
+    },
+    {
+      "ID": "it",
+      "VALUE": "意大利"
+    },
+    {
+      "ID": "ja",
+      "VALUE": "日本"
+    },
+    {
+      "ID": "pt",
+      "VALUE": "葡萄牙语"
+    },
+    {
+      "ID": "zh",
+      "VALUE": "中文"
+    }
+  ]
+}

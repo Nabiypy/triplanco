@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="user">{{user.Name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="user" id="profile-bg" [ngStyle]="{'background-image': 'url(' + user.Cover +')'}"></div>
+  <!-- User information start here -->
+  <div id="content" *ngIf="user">
+    <div id="profile-info" padding>
+      <img id="profile-image" src="{{user.Photo}}" (click)="viewImage(user.Photo, user.Name, user.about)">
+      <h2 id="profile-name"><b>{{user.Name}}</b></h2>
+      <p class="profile-description">{{user.about}}</p>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <ion-button expand="block" (click)="goChat(user)"><ion-icon src="\assets\icon\chat.svg" color="light"></ion-icon></ion-button>
+          {{ 'PROFILE.chat' | translate }}
+        </ion-col>
+        <ion-col size="4">
+          <ion-button (click)="Unfrienduser(user)" expand="block"><ion-icon src="\assets\icon\nouser.svg"></ion-icon></ion-button>
+          {{ 'PROFILE.unfriend' | translate }}
+        </ion-col>
+        <ion-col size="4">
+          <ion-button (click)="Blockuser(user)" expand="block"><ion-icon src="\assets\icon\delete.svg"></ion-icon></ion-button>
+          {{ 'PROFILE.block' | translate }}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!-- ion-segment-button that contain user basic info and friends list-->
+  <div *ngIf="user">
+    <ion-segment (ionChange)="slides.slideTo(segment)" [(ngModel)]="segment" mode="ios">
+      <ion-segment-button value="0">{{ 'PROFILE.info' | translate }}</ion-segment-button>
+      <ion-segment-button value="1">{{ 'PROFILE.friends' | translate }}</ion-segment-button>
+    </ion-segment>
+    <ion-slides #slides (ionSlideWillChange)="setSegment(slides.getActiveIndex())" style="display: flex; ">
+      <ion-slide>
+        <div style="width: 100%">
+          <ion-list>
+            <ion-item padding-left>
+              <ion-icon slot="start" name="person"  color="dark"></ion-icon>
+              <h6><b>{{user.Name}}</b></h6>
+            </ion-item>
+            <ion-item padding-left>
+              <ion-icon slot="start" name="mail" color="dark"></ion-icon>
+              <h6><b>{{user.Email}}</b></h6>
+            </ion-item>
+            <ion-item padding-left>
+              <ion-icon slot="start" name="list" color="dark"></ion-icon>
+              <h6><b>{{user.about}}</b></h6>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="pins">
+            <ion-card class="pin" *ngFor="let friend of Friends">
+              <img src="{{friend.Photo}}" (click)="viewImage(friend.Photo, friend.Name, friend.about)"/>
+              <ion-item>
+                <h5><b>{{friend.Name}}</b></h5>
+              </ion-item>
+            </ion-card>
+          </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>
+
+
+
+
+
+

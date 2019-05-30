@@ -1,0 +1,41 @@
+{
+  "LANGUAGE": "Bangla Language",
+  "LANGUAGES": [
+    {
+      "ID": "ar",
+      "VALUE": "আরবি"
+    },
+    {
+      "ID": "bn",
+      "VALUE": "বাংলা"
+    },
+    {
+      "ID": "en",
+      "VALUE": "ইংরেজি"
+    },
+    {
+      "ID": "es",
+      "VALUE": "স্পেনীয়"
+    },
+    {
+      "ID": "fr",
+      "VALUE": "ফরাসি"
+    },
+    {
+      "ID": "it",
+      "VALUE": "ইতালী"
+    },
+    {
+      "ID": "ja",
+      "VALUE": "জাপানি"
+    },
+    {
+      "ID": "pt",
+      "VALUE": "পর্তুগিজ"
+    },
+    {
+      "ID": "zh",
+      "VALUE": "চীনা"
+    }
+  ]
+}

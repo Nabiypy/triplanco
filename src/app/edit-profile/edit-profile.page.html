@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'PROFILE.editprofile' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="profile_wrapper">
+    <div *ngIf="user" class="image_background" [ngStyle]="{'background-image': 'url(' + user.Cover +')'}">
+      <div class="profile_img_wrapper" text-center *ngIf="user">
+        <img src={{user.Photo}} class="profilepic"/>
+      </div>
+    </div>
+    <!-- Edit profile form, since we are using FormGroup, import ReactiveForm module in edit-profile module-->
+    <div id="chat-parent" class="bg-image" [ngClass]="{ 'bg-image-X': phone_model=='iPhone X'}">
+      <section *ngFor="let user of users">
+        <div class="profile_detials">
+          <form [formGroup]="editProfileForm" value="" (submit)="updateProfile()" novalidate>
+            <ion-label padding><b>{{ 'PROFILE.name' | translate }}</b></ion-label>
+            <ion-item>
+              <ion-input #Name formControlName="Name" value="{{user.Name}}" type="text" class="custom-input"></ion-input>
+            </ion-item>
+            <div class="spacer" style="height: 10px;"></div>
+            <ion-label padding><b>{{ 'PROFILE.about' | translate }}</b></ion-label>
+            <ion-item>
+              <ion-textarea row="8"  #about formControlName="about" value="{{user.about}}" type="text" class="custom-input" class="custom-input"></ion-textarea>
+            </ion-item>
+            <ion-button expand="block" color="danger" type="submit">{{ 'PROFILE.submit' | translate }}</ion-button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+</ion-content>

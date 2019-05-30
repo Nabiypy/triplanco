@@ -1,6 +1,8 @@
 {
   "name": "triplanco",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "2d027536"
 }

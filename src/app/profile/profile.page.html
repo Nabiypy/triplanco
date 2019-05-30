@@ -1,0 +1,81 @@
+<ion-header>
+    <ion-toolbar color="danger">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{ 'PROFILE.profile' | translate }}</ion-title>
+    </ion-toolbar>
+    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+        <ion-fab-button color="light" (click)="editProfile()">
+            <ion-icon name="create" expand="icon-only" color="danger"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-header>
+<ion-content>
+    <div *ngIf="user">
+        <div class="profile_wrapper">
+            <div class="image_background" [ngStyle]="{'background-image': 'url(' + user.Cover +')'}">
+                <div class="profile_img_wrapper" text-center>
+                    <img src="{{user.Photo}}" class="profilepic" (click)="viewImage(user.Photo, user.Name, user.about)" />
+                    <div text-center style="color: #fff; font-weight: bold; font-size: 25px" padding-top>{{user.Name}}</div>
+                </div>
+            </div>
+            <div class="profile_detials">
+                <ion-list>
+                    <ion-list-header style="font-size: 15px; color: black"><b>{{ 'PROFILE.profile' | translate }}</b></ion-list-header>
+                    <ion-item no-padding>
+                        <ion-icon slot="start" name="person" color="dark"></ion-icon>
+                        <h6><b>{{user.Name}}</b></h6>
+                    </ion-item>
+                    <ion-item no-padding>
+                        <ion-icon slot="start" name="mail" color="dark"></ion-icon>
+                        <h6><b>{{user.Email}}</b></h6>
+                    </ion-item>
+                    <ion-item no-padding>
+                        <ion-icon slot="start" name="list" color="dark"></ion-icon>
+                        <h6><b>{{user.about}}</b></h6>
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <!-- User details start here -->
+                    <ion-list-header style="font-size: 15px; color: black"><b>{{ 'PROFILE.settings' | translate }}</b></ion-list-header>
+                    <ion-item no-padding (click)="proPic()">
+                        <ion-icon slot="start" name="person" color="dark"></ion-icon>
+                        <h6><b>{{ 'PROFILE.changepropic' | translate }}</b></h6>
+                    </ion-item>
+                    <ion-item no-padding (click)="coverPic()">
+                        <ion-icon slot="start" name="image" color="dark"></ion-icon>
+                        <h6><b>{{ 'PROFILE.changecoverpic' | translate }}</b></h6>
+                    </ion-item>
+                    <ion-item no-padding (click)="setEmail()">
+                        <ion-icon slot="start" name="mail" color="dark"></ion-icon>
+                        <h6><b>{{ 'PROFILE.changemail' | translate }}</b></h6>
+                    </ion-item>
+                    <ion-item no-padding (click)="setPassword()">
+                        <ion-icon slot="start" name="lock" color="dark"></ion-icon>
+                        <h6><b>{{ 'PROFILE.changepass' | translate }}</b></h6>
+                    </ion-item>
+                    <ion-item no-padding (click)="selectLanguage()">
+                        <ion-icon slot="start" name="globe" color="dark"></ion-icon>
+                        <h6><b>{{ 'PROFILE.selectlang' | translate }}</b></h6>
+                    </ion-item>
+                    <ion-item no-padding>
+                        <ion-icon slot="start" name="notifications" color="dark"></ion-icon>
+                        <h6><b>{{ 'PROFILE.notification' | translate }}</b></h6>
+                        <ion-toggle slot="end" [(ngModel)]="myNotify" (ionChange)="toggle()"></ion-toggle>
+                    </ion-item>
+                    <ion-item no-padding>
+                        <ion-icon slot="start" name="person" color="dark"></ion-icon>
+                        <h6><b>{{ 'PROFILE.onlinestatus' | translate }}</b></h6>
+                        <ion-toggle slot="end" [(ngModel)]="status" (ionChange)="onChange()"></ion-toggle>
+                    </ion-item>
+                    <ion-item no-padding (click)="deleteAccount()">
+                        <ion-icon slot="start" name="trash" color="dark"></ion-icon>
+                        <h6><b>{{ 'PROFILE.delectaccount' | translate }}</b></h6>
+                    </ion-item>
+                    <!-- User details end here -->
+                </ion-list>
+            </div>
+        </div>
+    </div>
+</ion-content>

@@ -1,0 +1,54 @@
+    <ion-header>
+        <ion-toolbar color="danger">
+          <ion-buttons slot="start">
+            <ion-back-button color="light"></ion-back-button>
+          </ion-buttons>
+          <ion-title>{{groupDetails.Name}} {{ 'GROUP.group' | translate }}</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content no-padding>
+        <ion-card class="welcome-card">
+          <img src="{{groupDetails.Picture}}" (click)="viewImage(groupDetails.Picture, groupDetails.Name, groupDetails.description)">
+          <ion-card-header>
+            <ion-card-subtitle>{{ 'GROUP.createdon' | translate }}  {{groupDetails.timestamp}}</ion-card-subtitle>
+            <ion-card-title style="font-size: 25px"><b>{{groupDetails.Name}}</b></ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p> {{groupDetails.description}}</p>
+          </ion-card-content>
+        </ion-card>
+        <h3>{{GroupMembers.length}} {{ 'GROUP.members' | translate }}</h3>
+        <!-- List of group members-->
+        <ion-list lines="none">
+            <ion-item *ngFor="let user of GroupMembers">
+              <ion-avatar slot="start">
+                <img src="{{user.Photo}}" (click)="viewImage(user.Photo, user.Name, user.about)">
+              </ion-avatar>
+              <ion-label>
+                <div class="withcount">
+                  <div class="nameAvatar">
+                    <h5 class="text-ellipsis" style="color: black"><b>{{user.Name}}</b></h5>
+                  </div>
+                </div>
+                <p class="widthHalf" text-wrap *ngIf="groupDetails.Owner === user.Id">{{ 'GROUP.admin' | translate }}</p>
+              </ion-label>
+              <div style="float: right;" *ngIf="groupDetails.Owner === userId">
+                <ion-buttons slot="end">
+                  <ion-button fill="outline" color="danger" (click)="showMemberConfirmation(user)" >{{ 'GROUP.delete' | translate }}</ion-button>
+                </ion-buttons>
+              </div>
+            </ion-item>
+          </ion-list>
+    </ion-content>
+    <!-- If current user is group admin, delete button show otherwise leave group button shown -->
+    <ion-footer>
+      <ion-button *ngIf="groupDetails.Owner != userId" expand="block" fill="outline" color="danger" style="text-transform: none" (click)="leavegroup()">
+        <ion-icon name="log-out"></ion-icon>
+        {{ 'GROUP.leavegroup' | translate }}
+      </ion-button>
+      <ion-button *ngIf="groupDetails.Owner === userId" expand="block" fill="outline" color="danger" style="text-transform: none" (click)="leavegroup()">
+          <ion-icon name="trash"></ion-icon>
+          {{ 'GROUP.deletegroup' | translate }}
+        </ion-button>
+    </ion-footer>
+    

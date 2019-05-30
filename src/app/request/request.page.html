@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'FRIEND.request' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div>
+    <!-- Request sent -->
+    <h3 padding-left *ngIf="sentRequests.length > 0">{{ 'FRIEND.requestsent' | translate }}</h3>
+    <ion-list class="unread">
+      <ion-item *ngFor="let user of sentRequests">
+        <ion-avatar class="chatImage" slot="start">
+          <img src="{{user.Photo}}">
+        </ion-avatar>
+        <ion-label>
+          <div class="withcount">
+            <div class="nameAvatar">
+              <h4 class="text-ellipsis">{{user.Name}}</h4>
+            </div>
+          </div>
+          <div class="widthHalf">
+            <ion-button style="text-transform: none" expand="block" color="danger" (click)="deleteSentRequest(user)">{{ 'FRIEND.requestcancel' | translate }}</ion-button>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div>
+    <!-- Request received -->
+    <h3 padding-left *ngIf="receivedRequests.length > 0">{{ 'FRIEND.receivedrequest' | translate }}</h3>
+    <ion-list class="unread">
+      <ion-item *ngFor="let user of receivedRequests">
+        <ion-avatar class="chatImage" slot="start">
+          <img src="{{user.Photo}}">
+        </ion-avatar>
+        <ion-label>
+          <div class="withcount">
+            <div class="nameAvatar">
+              <h6 class="text-ellipsis">{{user.Name}}</h6>
+            </div>
+          </div>
+          <div class="widthHalf">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="6"><ion-button style="text-transform: none" expand="full" color="secondary" large (click)="acceptRequest(user)">{{ 'FRIEND.accept' | translate }}</ion-button></ion-col>
+                <ion-col size="6"><ion-button style="text-transform: none" expand="full"  color="danger" large (click)="deleteReceivedRequest(user)">{{ 'FRIEND.reject' | translate }}</ion-button></ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

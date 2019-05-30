@@ -1,44 +1,108 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Home
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="danger show-background">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <!-- <img src="assets/imgs/newlogo.png" width="5%" /> -->
+        <img src="assets/imgs/hero_logo.png" class="logoCircle">
+        <!-- <ion-title>{{ 'HOME.messages' | translate }}</ion-title> -->
+        <ion-buttons slot="end" routerLink="/notifications/">
+            <ion-button id="notification-button">
+                <ion-icon name="notifications" style="font-size: 50px"></ion-icon>
+                <ion-badge color="primary" id="notifications-badge" *ngIf="user && user.notifications == true">{{notifications}}
+                </ion-badge>
+            </ion-button>
+        </ion-buttons>
+
+        <!-- <ion-buttons slot="end" (click)="findUser()">
+            <ion-button>
+                <ion-icon name="search" style="font-size: 28px"></ion-icon>
+            </ion-button>
+        </ion-buttons> -->
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-card class="welcome-card">
-      <ion-img src="/assets/shapes.svg"></ion-img>
-      <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome to Ionic</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
-      </ion-card-content>
-    </ion-card>
-    <ion-list lines="none">
-      <ion-list-header>
-        <ion-label>Resources</ion-label>
-      </ion-list-header>
-      <ion-item href="https://ionicframework.com/docs/">
-        <ion-icon slot="start" color="medium" name="book"></ion-icon>
-        <ion-label>Ionic Documentation</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/building/scaffolding">
-        <ion-icon slot="start" color="medium" name="build"></ion-icon>
-        <ion-label>Scaffold Out Your App</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/layout/structure">
-        <ion-icon slot="start" color="medium" name="grid"></ion-icon>
-        <ion-label>Change Your App Layout</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/theming/basics">
-        <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
-        <ion-label>Theme Your App</ion-label>
-      </ion-item>
-    </ion-list>
+<ion-content parallax-header no-bounce class="bg-modal" color="medium" fullscreen>
+    <!-- Our Banner -->
+    <div class="banner"></div>
+    <div class="main-content" text-wrap text-center>
+        <!-- <h4 style="color:black"><b>Menus</b></h4> -->
+        <ion-slides pager="false" class="slide-side" [options]="slideSideOpts">
+            <ion-slide>
+                <div class="elmt-slide" (click)="browserService.openFlightSearchPage()">
+                    <div class="thumb-img">
+                        <img src="assets/imgs/menu/final_flights.png">
+                    </div>
+                    <!-- <div class="main-txt" text-left>
+                        <h4 no-margin class="txt2 fw-600 fs-12 ellipsis uppercase">Flights</h4>
+                        <p no-margin class="txt3 fs-12 ellipsis">Various versions have evolved</p>
+                    </div> -->
+                </div>
+            </ion-slide>
+            <!-- (click)="browserService.openFlightSearchPage()" -->
+            <ion-slide>
+                <div class="elmt-slide" (click)="browserService.openHotelSearchPage()">
+                    <div class="thumb-img">
+                        <img src="assets/imgs/menu/final_hotels.png">
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="elmt-slide">
+                    <div class="thumb-img" (click)="browserService.openCarSearchPage()">
+                        <img src="assets/imgs/menu/final_cars.png">
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="elmt-slide" (click)="browserService.openBundleSearchPage()">
+                    <div class="thumb-img">
+                        <img src="assets/imgs/menu/final_bundles.png">
+                    </div>
+                </div>
+            </ion-slide>
+
+            <ion-slide>
+                <div class="elmt-slide" (click)="browserService.openActivitiesSearchPage()">
+                    <div class="thumb-img">
+                        <img src="assets/imgs/menu/final_activities.png">
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="elmt-slide">
+                    <div class="thumb-img" (click)="browserService.openCruiseSearchPage()">
+                        <img src="assets/imgs/menu/final_cruise.png">
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <div class="sub-content" text-wrap>
+        <!-- Our Specialization -->
+        <h4 style="color:rgb(2, 2, 2)"><strong>{{ 'HOME.recommendedHotel' | translate }}</strong></h4>
+        <ion-slides pager="true" [options]="slideOpts">
+            <!-- Landing Page Infos  -->
+            <ion-slide *ngFor="let slide of slides" class="slide-background">
+                <ion-slide>
+                    <div class="elmt-slide" (click)="browserService.openBestDealsPage()">
+                        <div class="thumb-img">
+                            <img [src]="slide.imageUrl">
+                        </div>
+                    </div>
+                </ion-slide>
+            </ion-slide>
+        </ion-slides>
+
+        <!-- <p style="color:black">
+            {{ 'ABOUT.specializationdetails' | translate }}
+        </p> -->
+    </div><br><br>
+    <!-- Our Contact
+    <div class="subsub-content" text-wrap text-center>
+        <h4 style="color:black"><b>Contact</b></h4>
+        <p style="color:black"><b>Phone: +2348024264660</b></p>
+        <p style="color:black"><b>WhatsApp: +2348024264660</b></p>
+        <p style="color:black"><b>Email: ashektechnology@gmail.com</b></p>
+    </div> -->
 </ion-content>

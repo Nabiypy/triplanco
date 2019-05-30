@@ -1,0 +1,44 @@
+<ion-header no-border>
+    <ion-toolbar color="danger" no-border>
+        <ion-buttons slot="start">
+            <ion-back-button color="light"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ 'FRIEND.finduser' | translate }}</ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="danger">
+        <ion-searchbar mode="md" (ionInput)="getUser($event)" placeholder="{{ 'FRIEND.searchuser' | translate }}">
+        </ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content no-padding>
+    <div id="chat-parent" class="bg-image" [ngClass]="{ 'bg-image-X': phone_model=='iPhone X'}">
+        <ion-list class="unread">
+            <!-- Get all user list -->
+            <ion-item lines="none" *ngFor="let user of users">
+                <ion-avatar class="chatImage" slot="start">
+                    <img src="{{user.Photo}}" (click)="viewImage(user.Photo, user.Name, user.about)">
+                </ion-avatar>
+                <ion-label>
+                    <div class="">
+                        <div class="nameAvatar">
+                            <h6 class="text-ellipsis">{{user.Name}}</h6>
+                        </div>
+                    </div>
+                </ion-label>
+                <div class="count">
+                    <!-- Send friend request to the user-->
+                    <ion-buttons slot="end">
+                        <ion-button fill="outline" color="primary" (click)="sendRequest(user)">{{ 'FRIEND.add' | translate }}
+                        </ion-button>
+                    </ion-buttons>
+                </div>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-button expand="block" fill="outline" color="danger" style="text-transform: none" routerLink="/nearby-user/">
+        <ion-icon name="pin"></ion-icon>
+        View Nearby Users
+    </ion-button>
+</ion-footer>

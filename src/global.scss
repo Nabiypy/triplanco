@@ -9,3 +9,100 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+
+.active-item {
+    border-left: 4px solid var(--ion-color-danger);
+  }
+
+  .user-avatar{
+      padding-left: 8px;
+  }
+  .name{
+      color: #ffffff;
+  }
+
+  img {
+    height: 200px;
+    width: 100%;
+  }
+  
+  .img-container { 
+    background-color: #ff0000; 
+    position: relative;
+    text-align: center;
+    margin: 0px !important;
+    width: 100% !important;
+    
+  }
+  
+
+  .card-title {
+    position: absolute;
+    top: 36%;
+    font-size: 2.5em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff; 
+  }
+
+  .pagemenu {
+    --ion-font-family: 'Bree-Serif';
+  }
+  .profile {
+    position: relative;
+    overflow: hidden;
+    height: 24vh;
+    margin-bottom: -0.625em;
+
+    img {
+      width: 28vw;
+      height: 28vw;
+      border-radius: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      object-fit: cover;
+    }
+
+}
+
+ion-input {
+  --placeholder-color: #000;
+  --color: #000;
+}
+
+.circle{
+  border-radius: 50%;
+  padding: 5px;
+  background-color: white;
+  border: 2px solid #999;
+  width: 28vw;
+  height: 28vw;
+}
+
+.my-custom-class {
+  --background: #ff0000;
+  --color: #FFFFFF;
+  --border-style:solid;
+  font-weight: bolder;
+  --border-width :3px;
+  --border-color: #ff0000;
+  z-index: 999;
+}
+
+.searchbar-input{
+  border-radius: 25px !important;
+}
+.searchbar-search-icon.sc-ion-searchbar-md {
+     left: 88% !important;
+}
+.searchbar-clear-button.sc-ion-searchbar-md {
+  left: 13px !important;
+  right: 0 !important;
+}
+
+

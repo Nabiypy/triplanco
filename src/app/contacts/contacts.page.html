@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'FRIEND.friendlist' | translate }}</ion-title>
+  </ion-toolbar>
+  <!-- Searchbar to search friend in alist-->
+  <ion-toolbar color="danger">
+    <ion-searchbar mode="md" (ionInput)="getUser($event)" placeholder="{{ 'FRIEND.search' | translate }}"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!-- Pull to refresh function -->
+  <ion-refresher slot="fixed" (ionRefresh)="ionRefresh($event)" (ionPull)="ionPull($event)" (ionStart)="ionStart($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+  <!-- When current user is yet to have any friend-->
+  <div *ngIf="Friends.length == 0" style="padding-top: 230px">
+    <h6 text-center><b>{{ 'FRIEND.nofriendyet' | translate }}</b></h6>
+  </div>
+  <div *ngIf="Friends.length == 0" style="padding-top: 250px">
+    <ion-fab vertical="center" horizontal="center" slot="fixed">
+      <ion-fab-button color="danger" (click)="findUser()">
+        <ion-icon name="search" expand="icon-only" color="light"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <!-- Friend list-->
+  <ion-list class="unread">
+    <ion-item *ngFor="let friend of Friends" lines="none">
+      <ion-avatar class="chatImage" slot="start">
+        <img src="{{friend.Photo}}" (click)="viewImage(friend.Photo, friend.Name, friend.about)">
+      </ion-avatar>
+      <ion-label>
+        <div class="withcount">
+          <div class="nameAvatar" routerLink="/user-profile/{{friend.Id}}">
+            <h6 class="text-ellipsis">{{friend.Name}}</h6>
+          </div>
+        </div>
+      </ion-label>
+      <div class="count">
+        <ion-buttons slot="end">
+          <ion-button fill="clear" (click)="goChat(friend)" ><ion-icon src="\assets\icon\chat.svg" color="danger"></ion-icon></ion-button>
+          <ion-button fill="clear" (click)="Unfrienduser(friend)"><ion-icon src="\assets\icon\nouser.svg" color="danger"></ion-icon></ion-button>
+          <ion-button fill="clear" (click)="Blockuser(friend)"><ion-icon src="\assets\icon\delete.svg" color="danger"></ion-icon></ion-button>
+        </ion-buttons>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

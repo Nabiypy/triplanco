@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>{{ 'COMPO.searchlocation' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!-- AutoComplete, search for any location and click to share -->
+  <ion-toolbar color="danger">
+    <ion-searchbar mode="md" [(ngModel)]="autocomplete.query"  placeholder="{{ 'COMPO.search' | translate }}" (ionInput)="updateSearch()"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content no-padding color="light">
+  <ion-list>
+    <ion-item *ngFor="let item of autocompleteItems" tappable   (click)="chooseItem(item)">
+      {{item}}
+    </ion-item>
+  </ion-list>
+  <!-- Current location marker is shown on the map with nearby places markers-->
+  <div #map id="map"></div>
+  <ion-item padding-left (click)="onSelect()">
+    <ion-icon slot="start" name="pin" color="primary"></ion-icon>
+    <h6>{{ 'COMPO.selectcurrent' | translate }}</h6>
+  </ion-item>
+  <!-- Select Nearby Places start here -->
+  <ion-item padding-left (click)="onSelect()">
+    <h6>{{ 'COMPO.sharenearby' | translate }}</h6>
+  </ion-item>
+  <ion-segment mode="md" (ionChange)="segmentChanged($event)" padding color="danger" scrollable>
+    <ion-segment-button mode="md" value="restaurants" checked fixed>
+      <div class="contentCenter">
+        <ion-text slot=end>{{ 'COMPO.restaurants' | translate }}</ion-text>
+      </div>
+    </ion-segment-button>
+    <ion-segment-button mode="md" value="banks">
+      <div class="contentCenter">
+        <ion-text slot=end>{{ 'COMPO.banks' | translate }}</ion-text>
+      </div>
+    </ion-segment-button>
+    <ion-segment-button mode="md" value="hospital">
+      <div class="contentCenter">
+        <ion-text slot=end>{{ 'COMPO.hospitals' | translate }}</ion-text>
+      </div>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-list *ngIf="segmentTab == 'restaurants' " no-padding padding-top>
+    <ion-item *ngFor="let place of restaurants" (click)="selectPlace(place.name)" lines="none">
+      <div class="borderBottomLine"></div>
+      <div class="listSection">
+        <div class="UserimgSection">
+          <ion-icon slot="start" src="\assets\icon\restaurant.svg" color="primary"></ion-icon>
+        </div>
+        <div class="usernameSection" style="width: 100%">
+          <h5 style="width: 100%; font-weight: bold; color: black" padding-start>{{place.name}}</h5>
+          <ion-text class="descText"  padding-start>{{place.vicinity}}</ion-text>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="segmentTab == 'banks' " no-padding padding-top>
+    <ion-item *ngFor="let place of banks" (click)="selectPlace(place.name)" lines="none">
+      <div class="borderBottomLine"></div>
+      <div class="listSection">
+        <div class="UserimgSection">
+          <ion-icon slot="start" src="\assets\icon\banks.svg" color="primary"></ion-icon>
+        </div>
+        <div class="usernameSection" style="width: 100%">
+          <h5 style="width: 100%; font-weight: bold; color: black" padding-start>{{place.name}}</h5>
+          <ion-text class="descText"  padding-start>{{place.vicinity}}</ion-text>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="segmentTab == 'hospital' " no-padding padding-top>
+    <ion-item *ngFor="let place of hospitals" (click)="selectPlace(place.name)" lines="none">
+      <div class="borderBottomLine"></div>
+      <div class="listSection">
+        <div class="UserimgSection">
+          <ion-icon slot="start" src="\assets\icon\hospital.svg" color="primary"></ion-icon>
+        </div>
+        <div class="usernameSection" style="width: 100%">
+          <h5 style="width: 100%; font-weight: bold; color: black" padding-start>{{place.name}}</h5>
+          <ion-text class="descText"  padding-start>{{place.vicinity}}</ion-text>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

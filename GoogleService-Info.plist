@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>139553963587-dflhsisdsqtk9kqlne5suoljustsi0j4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.139553963587-dflhsisdsqtk9kqlne5suoljustsi0j4</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCYUL6zm14yra33WVTuGbKBHVaBYNaJeow</string>
+	<key>GCM_SENDER_ID</key>
+	<string>139553963587</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>io.ionic.triplanco</string>
+	<key>PROJECT_ID</key>
+	<string>triplanco-5ceb6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>triplanco-5ceb6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:139553963587:ios:67a9859e3d88b594</string>
+	<key>DATABASE_URL</key>
+	<string>https://triplanco-5ceb6.firebaseio.com</string>
+</dict>
+</plist>

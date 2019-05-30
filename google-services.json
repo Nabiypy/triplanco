@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "139553963587",
+    "firebase_url": "https://triplanco-5ceb6.firebaseio.com",
+    "project_id": "triplanco-5ceb6",
+    "storage_bucket": "triplanco-5ceb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139553963587:android:67a9859e3d88b594",
+        "android_client_info": {
+          "package_name": "io.ionic.triplanco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139553963587-uifhubkalkppjr1uibdnd6tcs5esmmm4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY3WPCkK-_yumQ_0_ooFIOfi-Z_pHz7yI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139553963587-uifhubkalkppjr1uibdnd6tcs5esmmm4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

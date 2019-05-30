@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'FRIEND.blocklist' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list lines="none">
+    <!-- List of blocked members -->
+    <ion-item *ngFor="let user of blockList">
+      <ion-avatar slot="start">
+        <img src="{{user.Photo}}">
+      </ion-avatar>
+      <ion-label>
+        <div class="withcount">
+          <div class="nameAvatar">
+            <h5 class="text-ellipsis" style="color: black"><b>{{user.Name}}</b></h5>
+          </div>
+        </div>
+      </ion-label>
+      <div style="float: right;">
+        <!-- Unblock member-->
+        <ion-buttons slot="end">
+          <ion-button fill="outline" color="danger" (click)="showBlockConfirmation(user)">{{ 'FRIEND.unblock' | translate }}</ion-button>
+        </ion-buttons>
+      </div>
+    </ion-item>
+  </ion-list>
+  <!-- Shown if no block member-->
+  <div  *ngIf="blockList.length == 0" style="padding-top: 200px">
+    <h6 text-center><b>{{ 'FRIEND.noblockuser' | translate }}</b></h6>
+  </div>
+  <div *ngIf="blockList.length == 0" style="padding-top: 250px">
+    <ion-fab vertical="center" horizontal="center" slot="fixed">
+      <ion-fab-button color="danger">
+        <ion-icon name="person" expand="icon-only" color="light"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</ion-content>

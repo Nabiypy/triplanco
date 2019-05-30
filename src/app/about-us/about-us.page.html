@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-toolbar color="danger show-background">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <!-- <img src="assets/imgs/newlogo.png" width="5%" /> -->
+        <img src="assets/imgs/hero_logo.png" class="logoCircle">
+        <!-- <ion-title>{{ 'HOME.messages' | translate }}</ion-title> -->
+        <!-- <ion-buttons slot="end" routerLink="/notifications/">
+            <ion-button id="notification-button">
+                <ion-icon name="notifications" style="font-size: 60px"></ion-icon>
+                <ion-badge color="primary" id="notifications-badge" *ngIf="user && user.notifications == true">{{notifications}}
+                </ion-badge>
+            </ion-button>
+        </ion-buttons> -->
+
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon name="search" style="font-size: 28px"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content parallax-header no-bounce class="bg-modal" color="medium">
+    <!-- Our Banner -->
+    <div><img src="../assets/imgs/aboutOld.jpg" /></div>
+    <div class="main-content" text-wrap text-center>
+        <h4 style="color:black"><b>About us</b></h4>
+    </div>
+    <div class="sub-content" text-wrap>
+        <!-- Our Specialization -->
+        <h4 style="color:black"><b>{{ 'ABOUT.specialization' | translate }}</b></h4>
+        <p style="color:black">
+            {{ 'ABOUT.specializationdetails' | translate }}
+        </p>
+    </div>
+    <!-- Our Contact -->
+    <div class="subsub-content" text-wrap>
+        <h4 style="color:black"><b>Contact</b></h4>
+        <p style="color:black"><b>Phone: +233556481002‬</b></p>
+        <p style="color:black"><b>WhatsApp: +233556481002‬</b></p>
+        <p style="color:black"><b>Email: support@triplanco.com</b></p>
+    </div>
+</ion-content>
+<ion-footer>
+    <!-- Social Media -->
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-button color="primary" expand="full">
+                    <ion-icon name="logo-facebook" slot="start"></ion-icon>
+                    Facebook
+                </ion-button>
+            </ion-col>
+            <ion-col>
+                <ion-button color="warning" expand="full">
+                    <ion-icon name="logo-instagram" slot="start"></ion-icon>
+                    Instagram
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

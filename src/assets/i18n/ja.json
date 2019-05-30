@@ -1,0 +1,41 @@
+{
+  "LANGUAGE": "Japanese Language",
+  "LANGUAGES": [
+    {
+      "ID": "ar",
+      "VALUE": "アラビア語"
+    },
+    {
+      "ID": "bn",
+      "VALUE": "バングラ"
+    },
+    {
+      "ID": "en",
+      "VALUE": "英語"
+    },
+    {
+      "ID": "es",
+      "VALUE": "スペイン語"
+    },
+    {
+      "ID": "fr",
+      "VALUE": "フランス語"
+    },
+    {
+      "ID": "it",
+      "VALUE": "イタリアの"
+    },
+    {
+      "ID": "ja",
+      "VALUE": "日本語"
+    },
+    {
+      "ID": "pt",
+      "VALUE": "ポルトガル語"
+    },
+    {
+      "ID": "zh",
+      "VALUE": "中国語"
+    }
+  ]
+}

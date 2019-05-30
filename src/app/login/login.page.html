@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="danger">
+        <ion-buttons slot="start">
+            <ion-back-button color="light"></ion-back-button>
+        </ion-buttons>
+        <ion-title color="light">{{ 'AUTH.login' | translate }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="background" fullscreen>
+    <div id="chat-parent" class="bg-image" [ngClass]="{ 'bg-image-X': phone_model=='iPhone X'}">
+        <!-- Login with email and password -->
+        <div text-center>
+            <ion-icon src="assets\icon\messages.svg" style="font-size: 100px; color: #ff0000; margin-top: 15px"></ion-icon>
+        </div>
+        <div class="spacer" style="height: 10px;"></div>
+        <form #f="ngForm">
+            <ion-item>
+                <ion-input type="email" [(ngModel)]="form.Email" name="Email" placeholder="{{ 'AUTH.email' | translate }}" class="custom-input"></ion-input>
+            </ion-item>
+            <div class="spacer" style="height: 5px;"></div>
+            <ion-item>
+                <ion-input type="password" [(ngModel)]="form.Password" name="Password" placeholder="{{ 'AUTH.password' | translate }}" class="custom-input"></ion-input>
+            </ion-item>
+            <div class="spacer" style="height: 10px;"></div>
+            <ion-button fill="clear" color="dark" (click)="goForgotPassword()" style="text-transform: none">{{ 'AUTH.forgot' | translate }}</ion-button>
+            <div class="spacer" style="height: 10px;"></div>
+            <div class="margin">
+                <h5>{{errorLoginMessage}}</h5>
+            </div>
+            <ion-button expand="block" color="danger" [disabled]="disableLogin" (click)="signin()">{{ 'AUTH.login' | translate }}</ion-button>
+        </form>
+        <div class="spacer" style="height: 10px;"></div>
+        <p text-center><b>OR</b></p>
+        <div class="spacer" style="height: 10px;"></div>
+        <!-- <ion-button fill="clear" expand="full" color="dark" (click)="goRegister()">Don't have an account? Sign up</ion-button>-->
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-button fill="solid" expand="full" no-margin color="danger" (click)="goRegister()">{{ 'AUTH.register' | translate }}</ion-button>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-button fill="solid" expand="full" color="primary" no-margin (click)="facebookLogin()">{{ 'AUTH.facebook' | translate }}</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

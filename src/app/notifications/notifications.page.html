@@ -1,0 +1,83 @@
+<ion-header>
+    <ion-toolbar color="danger show-background">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <!-- <img src="assets/imgs/newlogo.png" width="5%" /> -->
+        <img src="assets/imgs/hero_logo.png" class="logoCircle">
+
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon name="search" style="font-size: 28px"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <!-- Get all unread messages -->
+    <h3 *ngIf="Notifications.length > 1">{{ 'NOTIFY.youhave' | translate }} {{Notifications.length}} {{ 'NOTIFY.unreads' | translate }}</h3>
+    <h3 *ngIf="Notifications.length === 1">{{ 'NOTIFY.youhave' | translate }} {{Notifications.length}} {{ 'NOTIFY.unread' | translate }}</h3>
+    <ion-list class="unread">
+        <ion-item padding-right class="activated" lines="none" *ngFor="let item of Notifications; let i = index" (click)="showNotificationsConfirmation(item, allUsers[i].Id)">
+            <ion-avatar class="chatImage" slot="start">
+                <img src="{{allUsers[i].Photo}}">
+            </ion-avatar>
+            <ion-label>
+                <div class="withcount">
+                    <div class="nameAvatar">
+                        <section *ngIf="item.Type == 'Request'">
+                            <h5 class="text-ellipsis" style="color: black" *ngIf="item.Type == 'Request'"><b>{{allUsers[i].Name}}</b></h5>
+                        </section>
+                        <section *ngIf="item.Type == 'Friend'">
+                            <h5 class="text-ellipsis" style="color: black" *ngIf="item.Type == 'Friend'"><b>{{allUsers[i].Name}}</b></h5>
+                        </section>
+                    </div>
+                </div>
+                <p class="widthHalf" *ngIf="item.Type == 'Request'" text-wrap>{{ 'NOTIFY.sentyourequest' | translate }}</p>
+                <p class="widthHalf" *ngIf="item.Type == 'Friend'" text-wrap>{{ 'NOTIFY.acceptyourequest' | translate }}</p>
+                <div class="timeEnd">
+                    <ion-text *ngIf="item.Type == 'Request'" slot="start" color="dark" style="font-size: 12px">{{item.time | date:'medium'}}</ion-text>
+                </div>
+                <div class="timeEnd">
+                    <ion-text *ngIf="item.Type == 'Friend'" slot="start" color="dark" style="font-size: 14px">{{item.time | date:'medium'}}</ion-text>
+                </div>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <div *ngIf="Notifications.length == 0">
+        <h3 text-center>{{ 'NOTIFY.nonewnotification' | translate}}</h3>
+    </div>
+    <!-- Get all read messages list -->
+    <ion-item-divider *ngIf="ReadNotifications.length > 0" style="background-color: #e4e3e3; color: black">{{ 'NOTIFY.previous' | translate }}</ion-item-divider>
+    <ion-list lines="none">
+        <ion-item-sliding *ngFor="let item of ReadNotifications; let i = index" (click)="showNotificationsReadConfirmation(item, allUserss[i].Id)">
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img src="{{allUserss[i].Photo}}">
+                </ion-avatar>
+                <ion-label>
+                    <div class="withcount">
+                        <div class="nameAvatar">
+                            <h5 class="text-ellipsis" style="color: black" *ngIf="item.Type == 'Request'"><b>{{allUserss[i].Name}}</b></h5>
+                            <h5 class="text-ellipsis" style="color: black" *ngIf="item.Type == 'Friend'"><b>{{allUserss[i].Name}}</b></h5>
+                        </div>
+                    </div>
+                    <p class="widthHalf" *ngIf="item.Type == 'Request'" text-wrap>{{ 'NOTIFY.sentyourequest' | translate }}</p>
+                    <p class="widthHalf" *ngIf="item.Type == 'Friend'" text-wrap>{{ 'NOTIFY.acceptyourequest' | translate }}</p>
+                    <div class="timeEnd">
+                        <ion-text *ngIf="item.Type == 'Request'" slot="start" color="dark" style="font-size: 14px">{{item.time | date:'medium'}}</ion-text>
+                    </div>
+                    <div class="timeEnd">
+                        <ion-text *ngIf="item.Type == 'Friend'" slot="start" color="dark" style="font-size: 14px">{{item.time | date:'medium'}}</ion-text>
+                    </div>
+                </ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-button color="danger" (click)="delete(item.Key)">
+                    <ion-icon name="trash"></ion-icon>
+                    {{ 'NOTIFY.delete' | translate }}
+                </ion-button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
