@@ -5,7 +5,7 @@
         </ion-buttons>
         <ion-title>{{ 'PROFILE.profile' | translate }}</ion-title>
     </ion-toolbar>
-    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+    <ion-fab vertical="top" horizontal="end" edge slot="fixed" *ngIf="isHidden">
         <ion-fab-button color="light" (click)="editProfile()">
             <ion-icon name="create" expand="icon-only" color="danger"></ion-icon>
         </ion-fab-button>
@@ -13,13 +13,29 @@
 </ion-header>
 <ion-content>
     <div *ngIf="user">
+
         <div class="profile_wrapper">
             <div class="image_background" [ngStyle]="{'background-image': 'url(' + user.Cover +')'}">
+                <!-- fab placed to the (vertical) center and end -->
+
                 <div class="profile_img_wrapper" text-center>
                     <img src="{{user.Photo}}" class="profilepic" (click)="viewImage(user.Photo, user.Name, user.about)" />
                     <div text-center style="color: #fff; font-weight: bold; font-size: 25px" padding-top>{{user.Name}}</div>
                 </div>
+
+                <div [hidden]="isHidden">
+                    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+                        <ion-fab-button color="light" (click)="editProfile()">
+                            <ion-icon name="create" expand="icon-only" color="danger"></ion-icon>
+                        </ion-fab-button>
+                    </ion-fab>
+                </div>
+
+
+
             </div>
+
+
             <div class="profile_detials">
                 <ion-list>
                     <ion-list-header style="font-size: 15px; color: black"><b>{{ 'PROFILE.profile' | translate }}</b></ion-list-header>

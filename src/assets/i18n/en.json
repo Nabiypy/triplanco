@@ -5,7 +5,9 @@
         "chathistory": "Chat History",
         "dashboard": "Dashboard",
         "recommendedHotel": "Recommended Hotels",
-        "popularRoutes": "Popular Routes"
+        "popularRoutes": "Popular Routes",
+        "swipemenu": "Swipe"
+
     },
     "MENU": {
         "messages": "Home",

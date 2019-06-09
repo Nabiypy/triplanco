@@ -31,8 +31,6 @@ const routes: Routes = [
   { path: 'nearby-user', loadChildren: './nearby-user/nearby-user.module#NearbyUserPageModule', canActivate: [AuthGuard] },
   { path: 'nearby-map', loadChildren: './nearby-map/nearby-map.module#NearbyMapPageModule', canActivate: [AuthGuard] },
   { path: 'about-us', loadChildren: './about-us/about-us.module#AboutUsPageModule', canActivate: [AuthGuard] },
-  { path: 'tutorials', loadChildren: './tutorials/tutorials.module#TutorialsPageModule' },
-  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule', canActivate: [AuthGuard] },
   { path: 'bundles', loadChildren: './bundles/bundles.module#BundlesPageModule' },
   { path: 'flights', loadChildren: './flights/flights.module#FlightsPageModule' },
   { path: 'hotels', loadChildren: './hotels/hotels.module#HotelsPageModule' },

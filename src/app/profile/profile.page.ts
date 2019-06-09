@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ModalController, ActionSheetController, AlertController, ToastController } from '@ionic/angular';
 import { UsersProvider } from '../provider/users';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
-import * as firebase from "firebase/app";
+import * as firebase from 'firebase/app';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog/ngx';
 import { Validator } from '../provider/validator';
@@ -12,6 +12,8 @@ import { ImageViewerComponent } from '../component/image-viewer/image-viewer.com
 import { LanguageComponent } from '../component/language/language.component';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { TranslateService } from '@ngx-translate/core';
+import { DocumentService } from '../provider/document.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-profile',
@@ -21,18 +23,28 @@ import { TranslateService } from '@ngx-translate/core';
 export class ProfilePage implements OnInit {
 
   public user: any;
+  public isHidden: boolean  = true;
   myNotify: boolean = true;
   chatSound: boolean = true;
   showOnline: any = false;
   status = true;
 
-  constructor(public ngZone: NgZone, public authProvider: AuthProvider,
-    public toastCtrl: ToastController, private spinnerDialog: SpinnerDialog,
-    public userProvider: UsersProvider, public camera: Camera, public afAuth: AngularFireAuth,
-    public translate: TranslateService, public router: Router,
-    public modalCtrl: ModalController, public afDB: AngularFireDatabase,
-    public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController) {
-
+  constructor(public ngZone: NgZone,
+              public authProvider: AuthProvider,
+              public toastCtrl: ToastController,
+              private spinnerDialog: SpinnerDialog,
+              public userProvider: UsersProvider,
+              public camera: Camera,
+              public afAuth: AngularFireAuth,
+              public translate: TranslateService,
+              public router: Router,
+              public modalCtrl: ModalController,
+              public afDB: AngularFireDatabase,
+              public actionSheetCtrl: ActionSheetController,
+              public alertCtrl: AlertController,
+              private documentService: DocumentService,
+              private storage: Storage ) {
+                this.showArabicFab();
   }
 
   ngOnInit() {
@@ -41,6 +53,7 @@ export class ProfilePage implements OnInit {
       this.user = <any>user;
       console.log(' user', this.user);
     });
+    this.showArabicFab();
   }
 
   ionViewDidEnter() {
@@ -493,6 +506,14 @@ export class ProfilePage implements OnInit {
     modal.present();
   }
 
+  async showArabicFab() {
+    await this.storage.get('isLng').then(val => {
+      console.log('@ Profile get select islng ====>', val);
+      if ( val === 'ar') {
+        this.isHidden = false;
+      }
+    });
+  }
   // view image in large form in modal component
   async viewImage(src: string, title: string, description: string) {
     const modal = await this.modalCtrl.create({

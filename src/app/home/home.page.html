@@ -29,9 +29,9 @@
         <!-- <h4 style="color:black"><b>Menus</b></h4> -->
         <ion-slides pager="false" class="slide-side" [options]="slideSideOpts">
             <ion-slide>
-                <div class="elmt-slide" (click)="browserService.openFlightSearchPage()">
-                    <div class="thumb-img">
-                        <img src="assets/imgs/menu/final_flights.png">
+                <div class="elmt-slide">
+                    <div class="thumb-img" (click)="browserService.openFlightSearchPage()">
+                        <img src="assets/imgs/menu/flights.png">
                     </div>
                     <!-- <div class="main-txt" text-left>
                         <h4 no-margin class="txt2 fw-600 fs-12 ellipsis uppercase">Flights</h4>
@@ -43,21 +43,21 @@
             <ion-slide>
                 <div class="elmt-slide" (click)="browserService.openHotelSearchPage()">
                     <div class="thumb-img">
-                        <img src="assets/imgs/menu/final_hotels.png">
+                        <img src="assets/imgs/menu/hotels.png">
                     </div>
                 </div>
             </ion-slide>
             <ion-slide>
                 <div class="elmt-slide">
                     <div class="thumb-img" (click)="browserService.openCarSearchPage()">
-                        <img src="assets/imgs/menu/final_cars.png">
+                        <img src="assets/imgs/menu/cars.png">
                     </div>
                 </div>
             </ion-slide>
             <ion-slide>
                 <div class="elmt-slide" (click)="browserService.openBundleSearchPage()">
                     <div class="thumb-img">
-                        <img src="assets/imgs/menu/final_bundles.png">
+                        <img src="assets/imgs/menu/bundles.png">
                     </div>
                 </div>
             </ion-slide>
@@ -65,22 +65,30 @@
             <ion-slide>
                 <div class="elmt-slide" (click)="browserService.openActivitiesSearchPage()">
                     <div class="thumb-img">
-                        <img src="assets/imgs/menu/final_activities.png">
+                        <img src="assets/imgs/menu/activities.png">
                     </div>
                 </div>
             </ion-slide>
             <ion-slide>
                 <div class="elmt-slide">
                     <div class="thumb-img" (click)="browserService.openCruiseSearchPage()">
-                        <img src="assets/imgs/menu/final_cruise.png">
+                        <img src="assets/imgs/menu/cruise.png">
                     </div>
                 </div>
             </ion-slide>
         </ion-slides>
+        <div class="" style="color: darkblue; font-weight: bolder">
+            <span>
+                <h6 style="margin-top: 11px">
+                    <ion-icon name="arrow-round-back"></ion-icon> {{ 'HOME.swipemenu' | translate }} <ion-icon name="arrow-round-forward"></ion-icon>
+                </h6>
+            </span>
+        </div>
+
     </div>
     <div class="sub-content" text-wrap>
         <!-- Our Specialization -->
-        <h4 style="color:rgb(2, 2, 2)"><strong>{{ 'HOME.recommendedHotel' | translate }}</strong></h4>
+        <h4 style="color:rgb(27, 3, 94); font-weight: bolder"><strong>{{ 'HOME.recommendedHotel' | translate }}</strong></h4>
         <ion-slides pager="true" [options]="slideOpts">
             <!-- Landing Page Infos  -->
             <ion-slide *ngFor="let slide of slides" class="slide-background">
@@ -98,11 +106,5 @@
             {{ 'ABOUT.specializationdetails' | translate }}
         </p> -->
     </div><br><br>
-    <!-- Our Contact
-    <div class="subsub-content" text-wrap text-center>
-        <h4 style="color:black"><b>Contact</b></h4>
-        <p style="color:black"><b>Phone: +2348024264660</b></p>
-        <p style="color:black"><b>WhatsApp: +2348024264660</b></p>
-        <p style="color:black"><b>Email: ashektechnology@gmail.com</b></p>
-    </div> -->
+
 </ion-content>

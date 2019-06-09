@@ -15,6 +15,10 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AppRate } from '@ionic-native/app-rate/ngx';
 import { NetworkProvider } from './provider/network';
 import { TranslateService } from '@ngx-translate/core';
+import { DocumentService } from './provider/document.service';
+import { Storage } from '@ionic/storage';
+import { ModalController } from '@ionic/angular';
+import { LanguageComponent } from './component/language/language.component';
 
 @Component({
   selector: 'app-root',
@@ -27,13 +31,12 @@ export class AppComponent implements OnInit {
   public notifyme;
   public userId;
   public pages;
-
+  public toDirection: any = 'rtl';
 
   // pages list at sidemenu
 
-
   notifications;
-
+  setSelectLanguage: any;
 
   constructor(
     private platform: Platform,
@@ -53,9 +56,13 @@ export class AppComponent implements OnInit {
     public translate: TranslateService,
     private spinnerDialog: SpinnerDialog,
     public authProvider: AuthProvider,
-  ) {
+    private documentService: DocumentService,
+    private storage: Storage,
+    public modalCtrl: ModalController ) {
+
     this.initializeApp();
     this.PushNotification();
+    // this.getSelectedLanguage();
     this.pages = [
       {
         title: this.translate.instant('MENU.messages'),
@@ -164,21 +171,51 @@ export class AppComponent implements OnInit {
 
   // navigate to pages through router
   ngOnInit() {
+    // console.log(`@app.commponent page select ...`);
     this.PushNotification();
     this.setUserData();
     this.router.events.subscribe((event: RouterEvent) => {
       if (event instanceof NavigationEnd) {
         this.pages.map(p => {
-          return p['active'] = (event.url === p.url);
+          return p.active = (event.url === p.url);
         });
       }
     });
+    // this.getSelectedLanguage();
   }
 
+
+  // ionViewWillEnter() {
+  //   console.log(`@app.commponent page select ...`);
+  // }
+
+  ionViewCanEnter() {
+    console.log(`@app.commponent page select ...`);
+  }
+  async selectLanguage() {
+    // Show modal
+    const modal = await this.modalCtrl.create({
+      component: LanguageComponent,
+    });
+    modal.present();
+  }
+
+  // Get selected language from storage
+  async getSelectedLanguage() {
+    await this.storage.get('appDir').then(val => {
+      console.log('Get selected appDir ====>', val);
+
+      // if (val === 'ar') {
+      //   this.documentService.setReadingDirection('rtl');
+      // } else {
+      //   this.documentService.setReadingDirection('ltr');
+      // }
+    });
+  }
   // share app
   shareApp() {
     // Common sharing event will open all available application to share
-    this.socialSharing.share('Download ChatMe', 'A geolocation chat application')
+    this.socialSharing.share('Share Triplanco app', 'Triplanco', 'https://play.google.com/store/apps/details?id=com.triplanco.travel&hl=en')
       .then((entries) => {
         console.log('success ' + JSON.stringify(entries));
       })
@@ -191,7 +228,7 @@ export class AppComponent implements OnInit {
   showRatePrompt() {
     if (this.platform.is('cordova')) {
       this.appRate.preferences.storeAppURL = {
-        android: 'market://details?id=io.ionicchatmeforionic.starter'
+        android: 'market://details?id=io.ionic.triplanco'
       };
       this.appRate.promptForRating(true);
     }
@@ -233,7 +270,7 @@ export class AppComponent implements OnInit {
 
   // user logout and navigate to welcome page
   async logOut() {
-    this.spinnerDialog.show('ChatMe', 'Logout..', false);
+    this.spinnerDialog.show('Triplanco', 'Logout..', false);
     this.authProvider.offlineStatuss().then(() => {
       this.authProvider.logOut().then(() => {
         window.localStorage.clear();

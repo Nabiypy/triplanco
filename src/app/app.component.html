@@ -1,48 +1,55 @@
 <ion-app>
-  <ion-split-pane>
-    <ion-menu *ngIf="authProvider.isLoggedIn">
-      <ion-header>
-        <!-- Get user info -->
-        <div class="img-container">
-          <div class="profile">
-            <img src="{{photoURL}}" class="circle"/>
-          </div>
-          <div text-center style="color: white; padding-bottom: 10px; font-size: 15px; font-weight: bold"> {{ displayName }}</div>
-        </div>
-      </ion-header>
-      <ion-content class="bg-profile">
-        <!-- Get menu pages list -->
-        <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" [class.active-item]="p.active">
-              <ion-icon slot="start" [name]="p.icon" color="dark"></ion-icon>
-              <ion-label style="font-weight: bold; color: black">{{ p.title | translate }} <span style="float: right" *ngIf="p.title == 'Notifications'"><ion-badge color="danger" *ngIf="notifyme == true">{{notifications}}</ion-badge></span></ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle>
-              <!-- share function -->
-              <ion-item (click)="shareApp()">
-                <ion-icon slot="start" name="share" color="dark"></ion-icon>
-                <ion-label style="font-weight: bold; color: black">{{ 'MENU.invitefriend' | translate }}</ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-            <ion-menu-toggle>
-                <!-- Rate function -->
-                <ion-item (click)="showRatePrompt()">
-                  <ion-icon slot="start" name="star" color="dark"></ion-icon>
-                  <ion-label style="font-weight: bold; color: black">{{ 'MENU.rateapp' | translate }}</ion-label>
-                </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle>
-            <!-- Logout function -->
-            <ion-item (click)="logOut()">
-              <ion-icon slot="start" name="log-out" color="dark"></ion-icon>
-              <ion-label style="font-weight: bold; color: black">{{ 'MENU.logout' | translate }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
-  </ion-split-pane>
+    <ion-split-pane>
+        <ion-menu *ngIf="authProvider.isLoggedIn">
+            <ion-header>
+                <!-- Get user info -->
+                <div class="img-container">
+                    <div class="profile">
+                        <img src="{{photoURL}}" class="circle" />
+                    </div>
+                    <div text-center style="color: white; padding-bottom: 10px; font-size: 15px; font-weight: bold"> {{ displayName }}</div>
+                </div>
+            </ion-header>
+            <ion-content class="bg-profile">
+                <!-- Get menu pages list -->
+                <ion-list>
+                    <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+                        <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" [class.active-item]="p.active">
+                            <ion-icon slot="start" [name]="p.icon" color="primary"></ion-icon>
+                            <ion-label style="font-weight: bold; color: #00147e">{{ p.title | translate }} <span style="float: right" *ngIf="p.title == 'Notifications'"><ion-badge color="danger" *ngIf="notifyme == true">{{notifications}}</ion-badge></span></ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <!-- Change language -->
+                    <!-- <ion-menu-toggle>
+                        <ion-item (click)="selectLanguage()">
+                            <ion-icon slot="start" name="globe" color="primary"></ion-icon>
+                            <ion-label style="font-weight: bold; color: #00147e">{{ 'PROFILE.selectlang' | translate }}</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle> -->
+                    <ion-menu-toggle>
+                        <!-- share function -->
+                        <ion-item (click)="shareApp()">
+                            <ion-icon slot="start" name="share" color="primary"></ion-icon>
+                            <ion-label style="font-weight: bold; color: #00147e">{{ 'MENU.invitefriend' | translate }}</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <!-- Rate function -->
+                        <ion-item (click)="showRatePrompt()">
+                            <ion-icon slot="start" name="star" color="primary"></ion-icon>
+                            <ion-label style="font-weight: bold; color: #00147e">{{ 'MENU.rateapp' | translate }}</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <!-- Logout function -->
+                        <ion-item (click)="logOut()">
+                            <ion-icon slot="start" name="log-out" color="primary"></ion-icon>
+                            <ion-label style="font-weight: bold; color: #00147e">{{ 'MENU.logout' | translate }}</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+        <ion-router-outlet main></ion-router-outlet>
+    </ion-split-pane>
 </ion-app>

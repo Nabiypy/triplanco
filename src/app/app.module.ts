@@ -50,6 +50,7 @@ import { BlockProvider } from './provider/block';
 import { ChatProvider } from './provider/chat';
 import { EmojiPickerComponent } from './component/emoji-picker/emoji-picker.component';
 import { NgxMaskIonicModule } from 'ngx-mask-ionic';
+import { DocumentService } from './provider/document.service';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -123,6 +124,7 @@ firebase.initializeApp(firebaseConfig);
     ChatProvider,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig },
+    DocumentService
   ],
   bootstrap: [AppComponent]
 })

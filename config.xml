@@ -2,7 +2,7 @@
 <widget id="io.ionic.triplanco" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Triplanco</name>
     <description>Flight and hotel booking app</description>
-    <author email="appdev@bbrandingsolutions" href="https://bbrandingsolutions.com/">BBranding Team</author>
+    <author email="support@triplanco.com" href="https://triplanco.com/">Support Triplanco</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
