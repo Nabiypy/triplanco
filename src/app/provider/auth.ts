@@ -193,6 +193,47 @@ export class AuthProvider {
   	return promise;
   }
 
+  // Users register with annimosity
+  registerGuest() {
+  	const promise = new Promise((resolve, reject) => {
+      this.chatProvider.getLocation().then((data) => {
+        this.lat = data.coords.latitude,
+        this.long = data.coords.longitude,
+        this.afAuth.auth.signInAnonymously().then(() => {
+  			this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).set({
+  		    Name: 'Anonymous',
+          Email: 'Null',
+          Mobile: 'Null',
+          Id: this.afAuth.auth.currentUser.uid,
+          lat: this.lat,
+          long: this.long,
+          notifications: false,
+          sound: true,
+          distance: '',
+          Status: 'Online',
+          about: 'Hey there! I\'m a Triplanco fun and a Guest',
+          Cover: 'assets/imgs/cover.png',
+          Photo: 'https://firebasestorage.googleapis.com/v0/b/chat-app-f6a12.appspot.com/o/user.png?alt=media&token=79419e48-423a-42c3-92b2-16027651b931'
+  			}).then(() => {
+          this.chatProvider.getLocation().then((data) => {
+            console.log('locationServices >>>');
+            const geoFire = new GeoFire(this.geoRef);
+            const geoRef = geoFire.ref;
+            geoFire.set(this.afAuth.auth.currentUser.uid, [data.coords.latitude, data.coords.longitude]).then(() => {
+            resolve(true);
+            });
+          });
+  			}).catch((err) => {
+  				reject(err);
+  			});
+  		}).catch((err) => {
+  			reject(err);
+  		});
+    });
+  });
+  	return promise;
+  }
+
  // logout function
   logOut() {
   	const promise = new Promise((resolve, reject) => {

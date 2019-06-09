@@ -169,4 +169,19 @@ export class WelcomePage implements OnInit {
         });
     }
 
+
+    loginAsGuest() {
+        this.authProvider.registerGuest().then((guest) => {
+            console.log('Anonymous user response', guest);
+            this.router.navigateByUrl('home');
+            this.authProvider.onlineStatus();
+            this.authProvider.isLoggedIn = true;
+            window.localStorage.setItem('userstate', 'logedIn');
+            window.localStorage.setItem('userid', this.authProvider.afAuth.auth.currentUser.uid);
+        }).catch(error => {
+            console.log('error sign as a guest ==>' + JSON.stringify(error));
+        });
+    }
+
+
 }
