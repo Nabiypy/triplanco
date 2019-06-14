@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  zeitUrl: 'https://api.cloud-africa.io/api'
+
 };

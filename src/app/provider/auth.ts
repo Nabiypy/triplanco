@@ -5,10 +5,16 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { ChatProvider } from './chat';
 import { GeoFire } from 'geofire';
+import { UsersProvider } from './users';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root'
+})
 export class AuthProvider {
 
   ProfileDetails;
@@ -18,10 +24,15 @@ export class AuthProvider {
   geoRef = firebase.database().ref('geo/');
   lat;
   long;
+  guestName: any;
 
-
-  constructor(public chatProvider: ChatProvider, public afAuth: AngularFireAuth, public afDB: AngularFireDatabase, public evente: Events) {
-    this.userList = firebase.database().ref('/users' );
+  constructor(public chatProvider: ChatProvider,
+              public afAuth: AngularFireAuth,
+              public afDB: AngularFireDatabase,
+              public evente: Events,
+              public http: HttpClient) {
+    this.userList = firebase.database().ref('/users');
+    this.getRandomize();
   }
 
   // Get all the details of the user for both current user and friend
@@ -37,7 +48,7 @@ export class AuthProvider {
     return promise;
   }
 
- // User can update their profile details
+  // User can update their profile details
   updateProfile(userDetails) {
     const promise = new Promise((resolve, reject) => {
       this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).update({
@@ -53,26 +64,26 @@ export class AuthProvider {
     return promise;
   }
 
-// Get user details by id
+  // Get user details by id
   getMyDetails() {
-      this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).on('value', snap => {
-        this.myDetails;
-        this.myDetails = snap.val();
-        this.evente.publish('myDetails');
-      });
+    this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).on('value', snap => {
+      this.myDetails;
+      this.myDetails = snap.val();
+      this.evente.publish('myDetails');
+    });
   }
 
-// Get user profile details from other users
+  // Get user profile details from other users
   getProfileDetails(userDetails) {
-      this.afDB.database.ref('users').child(userDetails.Id).on('value', snap => {
-        this.ProfileDetails;
-        this.ProfileDetails = snap.val();
+    this.afDB.database.ref('users').child(userDetails.Id).on('value', snap => {
+      this.ProfileDetails;
+      this.ProfileDetails = snap.val();
 
-        this.evente.publish('ProfileDetails');
-      });
+      this.evente.publish('ProfileDetails');
+    });
   }
 
-// Upload profile picture
+  // Upload profile picture
   uploadProfilePhoto(picURL) {
     const promise = new Promise((resolve, reject) => {
       firebase.storage().ref('Profile Picture').child(this.afAuth.auth.currentUser.uid + '.jpg').putString(picURL, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
@@ -94,7 +105,7 @@ export class AuthProvider {
     return promise;
   }
 
-// Upload Background picture
+  // Upload Background picture
   uploadCover(picURL) {
     const promise = new Promise((resolve, reject) => {
       firebase.storage().ref('Covers').child(this.afAuth.auth.currentUser.uid + '.jpg').putString(picURL, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
@@ -116,137 +127,143 @@ export class AuthProvider {
     return promise;
   }
 
- // Login function with email and password
+  // Login function with email and password
   login(userDetails) {
-  	const promise = new Promise((resolve, reject) => {
-  		this.afAuth.auth.signInWithEmailAndPassword(userDetails.Email, userDetails.Password).then(() => {
-  			resolve(true);
-  		}).catch((err) => {
-  			reject(err);
-  		});
-  	});
-  	return promise;
+    const promise = new Promise((resolve, reject) => {
+      this.afAuth.auth.signInWithEmailAndPassword(userDetails.Email, userDetails.Password).then(() => {
+        resolve(true);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+    return promise;
   }
 
-   // Login function for guest
-   loginAsGuest() {
-     const promise  = new Promise((resolve, reject) => {
+  // Login function for guest
+  loginAsGuest() {
+    const promise = new Promise((resolve, reject) => {
       this.afAuth.auth.signInAnonymously().then(() => {
         resolve(true);
       }).catch((error) => {
         reject(error);
       });
-     });
-     return promise;
+    });
+    return promise;
   }
 
-// Forgot password function
+  // Forgot password function
   forgetPassword(userDetails) {
-  	const promise = new Promise((resolve, reject) => {
-  		this.afAuth.auth.sendPasswordResetEmail(userDetails.Email).then(() => {
-  			resolve(true);
-  		}).catch((err) => {
-  			reject(err);
-  		});
-  	});
-  	return promise;
+    const promise = new Promise((resolve, reject) => {
+      this.afAuth.auth.sendPasswordResetEmail(userDetails.Email).then(() => {
+        resolve(true);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+    return promise;
   }
 
   // Users  register with their email, password and details
-    register(userDetails) {
-  	const promise = new Promise((resolve, reject) => {
+  register(userDetails) {
+    const promise = new Promise((resolve, reject) => {
       this.chatProvider.getLocation().then((data) => {
         this.lat = data.coords.latitude,
-        this.long = data.coords.longitude,
-  		this.afAuth.auth.createUserWithEmailAndPassword(userDetails.Email, userDetails.Password).then(() => {
-  			this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).set({
-  		    Name: userDetails.Name,
-          Email: userDetails.Email,
-          Mobile: userDetails.Mobile,
-          Id: this.afAuth.auth.currentUser.uid,
-          lat: this.lat,
-          long: this.long,
-          notifications: true,
-          sound: true,
-          distance: '',
-          Status: 'Online',
-          about: 'Hey there! I\'m using Triplanco mobile app.',
-          Cover: 'assets/imgs/cover.png',
-          Photo: 'https://firebasestorage.googleapis.com/v0/b/chat-app-f6a12.appspot.com/o/user.png?alt=media&token=79419e48-423a-42c3-92b2-16027651b931'
-  			}).then(() => {
-          this.chatProvider.getLocation().then((data) => {
-            console.log('locationServices >>>');
-            const geoFire = new GeoFire(this.geoRef);
-            const geoRef = geoFire.ref;
-            geoFire.set(this.afAuth.auth.currentUser.uid, [data.coords.latitude, data.coords.longitude]).then(() => {
-            resolve(true);
+          this.long = data.coords.longitude,
+          this.afAuth.auth.createUserWithEmailAndPassword(userDetails.Email, userDetails.Password).then(() => {
+            this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).set({
+              Name: userDetails.Name,
+              Email: userDetails.Email,
+              Mobile: userDetails.Mobile,
+              Id: this.afAuth.auth.currentUser.uid,
+              lat: this.lat,
+              long: this.long,
+              notifications: true,
+              sound: true,
+              distance: '',
+              Status: 'Online',
+              about: 'Hey there! I\'m using Triplanco mobile app.',
+              Cover: 'assets/imgs/cover.png',
+              Photo: 'https://firebasestorage.googleapis.com/v0/b/chat-app-f6a12.appspot.com/o/user.png?alt=media&token=79419e48-423a-42c3-92b2-16027651b931'
+            }).then(() => {
+              this.chatProvider.getLocation().then((data) => {
+                console.log('locationServices >>>');
+                const geoFire = new GeoFire(this.geoRef);
+                const geoRef = geoFire.ref;
+                geoFire.set(this.afAuth.auth.currentUser.uid, [data.coords.latitude, data.coords.longitude]).then(() => {
+                  resolve(true);
+                });
+              });
+            }).catch((err) => {
+              reject(err);
             });
+          }).catch((err) => {
+            reject(err);
           });
-  			}).catch((err) => {
-  				reject(err);
-  			});
-  		}).catch((err) => {
-  			reject(err);
-  		});
+      });
     });
-  });
-  	return promise;
+    return promise;
+  }
+
+  async getRandomize() {
+    this.guestName = await Math.random().toString(36).substring(7);
+    console.log('random guest name', this.guestName);
   }
 
   // Users register with annimosity
   registerGuest() {
-  	const promise = new Promise((resolve, reject) => {
+    // console.log('Generated Guest random user id ===>', guestName);
+    const promise = new Promise((resolve, reject) => {
       this.chatProvider.getLocation().then((data) => {
         this.lat = data.coords.latitude,
-        this.long = data.coords.longitude,
-        this.afAuth.auth.signInAnonymously().then(() => {
-  			this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).set({
-  		    Name: 'Anonymous',
-          Email: 'Null',
-          Mobile: 'Null',
-          Id: this.afAuth.auth.currentUser.uid,
-          lat: this.lat,
-          long: this.long,
-          notifications: false,
-          sound: true,
-          distance: '',
-          Status: 'Online',
-          about: 'Hey there! I\'m a Triplanco fun and a Guest',
-          Cover: 'assets/imgs/cover.png',
-          Photo: 'https://firebasestorage.googleapis.com/v0/b/chat-app-f6a12.appspot.com/o/user.png?alt=media&token=79419e48-423a-42c3-92b2-16027651b931'
-  			}).then(() => {
-          this.chatProvider.getLocation().then((data) => {
-            console.log('locationServices >>>');
-            const geoFire = new GeoFire(this.geoRef);
-            const geoRef = geoFire.ref;
-            geoFire.set(this.afAuth.auth.currentUser.uid, [data.coords.latitude, data.coords.longitude]).then(() => {
-            resolve(true);
+          this.long = data.coords.longitude,
+          this.afAuth.auth.signInAnonymously().then(() => {
+            this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).set({
+              Name: 'Guest-' + this.guestName,
+              Email: 'Null',
+              Mobile: 'Null',
+              Id: this.afAuth.auth.currentUser.uid,
+              lat: this.lat,
+              long: this.long,
+              notifications: true,
+              sound: true,
+              distance: '',
+              Status: 'Online',
+              about: 'Hey there! I\'m a Triplanco fun and a Guest',
+              Cover: 'assets/imgs/cover.png',
+              Photo: 'https://firebasestorage.googleapis.com/v0/b/chat-app-f6a12.appspot.com/o/user.png?alt=media&token=79419e48-423a-42c3-92b2-16027651b931'
+            }).then(() => {
+              this.chatProvider.getLocation().then((data) => {
+                console.log('locationServices >>>');
+                const geoFire = new GeoFire(this.geoRef);
+                const geoRef = geoFire.ref;
+                geoFire.set(this.afAuth.auth.currentUser.uid, [data.coords.latitude, data.coords.longitude]).then(() => {
+                  resolve(true);
+                });
+              });
+            }).catch((err) => {
+              reject(err);
             });
+          }).catch((err) => {
+            reject(err);
           });
-  			}).catch((err) => {
-  				reject(err);
-  			});
-  		}).catch((err) => {
-  			reject(err);
-  		});
+      });
     });
-  });
-  	return promise;
+    return promise;
   }
 
- // logout function
+  // logout function
   logOut() {
-  	const promise = new Promise((resolve, reject) => {
-  		this.afAuth.auth.signOut().then(() => {
-  			resolve(true);
-  		}).catch((err) => {
-  			reject(err);
-  		});
-  	});
-  	return  promise;
+    const promise = new Promise((resolve, reject) => {
+      this.afAuth.auth.signOut().then(() => {
+        resolve(true);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+    return promise;
   }
 
-// update online status
+  // update online status
   onlineStatus() {
     const promise = new Promise((resolve, reject) => {
       this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).update({
@@ -260,7 +277,7 @@ export class AuthProvider {
     return promise;
   }
 
-// update offline status
+  // update offline status
   offlineStatuss() {
     const promise = new Promise((resolve, reject) => {
       this.afDB.database.ref('users').child(this.afAuth.auth.currentUser.uid).update({
@@ -309,6 +326,5 @@ export class AuthProvider {
     );
   }
 
-
-
 }
+
