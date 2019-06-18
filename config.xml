@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.triplanco" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.ionic.triplanco" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Triplanco</name>
     <description>Flight and Hotel booking app for Android and iOS plaform.</description>
     <author email="support@triplanco.com" href="https://triplanco.com/">Triplanco Team</author>
