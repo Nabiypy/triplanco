@@ -15,7 +15,6 @@ export class InappbrowserService {
   public carsUrl = 'https://cars-oqowcqjncf.now.sh/';
   public cruiseUrl = 'https://cruise-uigfglyiaw.now.sh';
   public otherDealsUrl = 'otherdeals-ugcqxgtgew.now.sh';
-  // public bestDealsUrl = 'https://bestdeals-pfskdsgytb.now.sh';
   public bestDealsUrl = 'https://bestdeals-tkiyhzbald.now.sh';
 
   options: InAppBrowserOptions = {

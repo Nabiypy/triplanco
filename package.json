@@ -139,8 +139,8 @@
             "cordova-plugin-fcm-with-dependecy-updated": {},
             "cordova-plugin-nativeaudio": {},
             "cordova-plugin-facebook4": {
-                "APP_ID": "336986497166470",
-                "APP_NAME": "ChatMe",
+                "APP_ID": "929208620746703",
+                "APP_NAME": "Triplanco",
                 "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0"
             },
             "cordova-plugin-filechooser": {},

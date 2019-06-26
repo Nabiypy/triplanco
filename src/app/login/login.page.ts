@@ -13,11 +13,9 @@ declare var window: any;
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.page.html',
-	styleUrls: ['./login.page.scss'],
+	styleUrls: ['./login.page.scss']
 })
-
 export class LoginPage implements OnInit {
-
 	form: any;
 	userDetails: any;
 	public toast;
@@ -28,16 +26,20 @@ export class LoginPage implements OnInit {
 	phone_model = 'iPhone';
 	userProfile: any = null;
 
-	constructor(public toastController: ToastController,
-		private router: Router, public alertController: AlertController,
+	constructor(
+		public toastController: ToastController,
+		private router: Router,
+		public alertController: AlertController,
 		public translate: TranslateService,
-		public afDB: AngularFireDatabase, private platform: Platform,
-		public facebook: Facebook, private spinnerDialog: SpinnerDialog,
-		public loadingCtrl: LoadingController, public authProvider: AuthProvider,
-		public modalCtrl: ModalController) {
-
+		public afDB: AngularFireDatabase,
+		private platform: Platform,
+		public facebook: Facebook,
+		private spinnerDialog: SpinnerDialog,
+		public loadingCtrl: LoadingController,
+		public authProvider: AuthProvider,
+		public modalCtrl: ModalController
+	) {
 		this.form = {};
-
 	}
 
 	ngOnInit() {
@@ -47,26 +49,38 @@ export class LoginPage implements OnInit {
 	// Login function
 	signin() {
 		if (this.validateRegister(this.form)) {
-			this.spinnerDialog.show('Triplanco', this.translate.instant('ALERT.logging'), false);
+			this.spinnerDialog.show('Triplanco',
+				this.translate.instant('ALERT.logging'),
+				false
+			);
 			this.disableLogin = true;
 			this.buttonText = 'Login...';
 			this.userDetails = {
 				Email: this.form.Email,
-				Password: this.form.Password,
+				Password: this.form.Password
 			};
 
-			this.authProvider.login(this.userDetails).then(() => {
-				this.spinnerDialog.hide();
-				this.router.navigateByUrl('home');
-				this.authProvider.onlineStatus();
-				this.authProvider.isLoggedIn = true;
-				this.showToast(this.translate.instant('ALERT.welcomeback'));
-				window.localStorage.setItem('userstate', 'logedIn');
-				window.localStorage.setItem('userid', this.authProvider.afAuth.auth.currentUser.uid);
-				// 	});
-				this.disableLogin = false;
-				this.buttonText = 'Register Account';
-			}).catch(err => { this.handleLoginError(err); });
+			this.authProvider
+				.login(this.userDetails)
+				.then(() => {
+					this.spinnerDialog.hide();
+					this.router.navigateByUrl('home');
+					this.authProvider.onlineStatus();
+					this.authProvider.isLoggedIn = true;
+					this.showToast(this.translate.instant('ALERT.welcomeback'));
+					window.localStorage.setItem('userstate', 'logedIn');
+					window.localStorage.setItem(
+						'userid',
+						this.authProvider.afAuth.auth.currentUser.uid
+					);
+					// 	});
+					this.disableLogin = false;
+					this.buttonText = 'Register Account';
+				})
+				.catch(err => {
+					this.spinnerDialog.hide();
+					this.handleLoginError(err);
+				});
 		}
 	}
 
@@ -102,21 +116,23 @@ export class LoginPage implements OnInit {
 			return false;
 		}
 
-		return true;
+	return true;
 	}
 
 	// Toast shown when user login
 	showToast(message) {
-		this.toast = this.toastController.create({
-			message,
-			position: 'bottom',
-			duration: 4000,
-			animated: true,
-			cssClass: 'my-custom-class'
-		}).then((toastData) => {
-			console.log(toastData);
-			toastData.present();
-		});
+		this.toast = this.toastController
+			.create({
+				message,
+				position: 'bottom',
+				duration: 4000,
+				animated: true,
+				cssClass: 'my-custom-class'
+			})
+			.then(toastData => {
+				console.log(toastData);
+				toastData.present();
+			});
 	}
 
 	// proceed to register page
@@ -132,29 +148,39 @@ export class LoginPage implements OnInit {
 	// facebook login
 	facebookLogin(): void {
 		const permissions = ['public_profile', 'email'];
-		this.facebook.login(permissions).then((response) => {
-			const facebookCredential = firebase.auth.FacebookAuthProvider
-				.credential(response.authResponse.accessToken);
-			firebase.auth().signInWithCredential(facebookCredential)
-				.then((success) => {
-					console.log('Firebase success: ' + JSON.stringify(success));
-					this.userProfile = success;
-					// since the user have login once with facebook, update the user profile
-					this.afDB.database.ref('users').child(this.userProfile.uid).update({
-						Name: this.userProfile.displayName,
-						Email: this.userProfile.email,
-						Photo: this.userProfile.photoURL
-					}).then(() => {
-						this.router.navigateByUrl('home');
-						this.authProvider.isLoggedIn = true;
-						this.showToast(this.translate.instant('ALERT.welcomeback'));
+		this.facebook
+			.login(permissions)
+			.then(response => {
+				const facebookCredential = firebase.auth.FacebookAuthProvider.credential(
+					response.authResponse.accessToken
+				);
+				firebase
+					.auth()
+					.signInWithCredential(facebookCredential)
+					.then(success => {
+						console.log('Firebase success: ' + JSON.stringify(success));
+						this.userProfile = success;
+						// since the user have login once with facebook, update the user profile
+						this.afDB.database
+							.ref('users')
+							.child(this.userProfile.uid)
+							.update({
+								Name: this.userProfile.displayName,
+								Email: this.userProfile.email,
+								Photo: this.userProfile.photoURL
+							})
+							.then(() => {
+								this.router.navigateByUrl('home');
+								this.authProvider.isLoggedIn = true;
+								this.showToast(this.translate.instant('ALERT.welcomeback'));
+							});
+					})
+					.catch(error => {
+						console.log('Firebase failure: ' + JSON.stringify(error));
 					});
-				}).catch((error) => {
-					console.log('Firebase failure: ' + JSON.stringify(error));
-				});
-
-		}).catch((error) => { console.log(error); });
-
+			})
+			.catch(error => {
+				console.log(error);
+			});
 	}
-
 }

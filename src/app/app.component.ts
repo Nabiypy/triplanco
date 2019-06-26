@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
   public userId;
   public pages;
   public toDirection: any = 'rtl';
-
+  public shareMsg;
   // pages list at sidemenu
 
   notifications;
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
     public authProvider: AuthProvider,
     private documentService: DocumentService,
     private storage: Storage,
-    public modalCtrl: ModalController ) {
+    public modalCtrl: ModalController) {
 
     this.initializeApp();
     this.PushNotification();
@@ -130,6 +130,7 @@ export class AppComponent implements OnInit {
       this.notification();
       this.languageService.setInitialAppLanguage();
       // get notification token
+      this.showRatePromptApple();
     });
   }
 
@@ -215,7 +216,8 @@ export class AppComponent implements OnInit {
   // share app
   shareApp() {
     // Common sharing event will open all available application to share
-    this.socialSharing.share('Share Triplanco app', 'Triplanco', 'https://play.google.com/store/apps/details?id=com.triplanco.travel&hl=en')
+    this.shareMsg = 'Share app link with Family and Friends: https://play.google.com/store/apps/details?id=io.ionic.triplanco&hl=en';
+    this.socialSharing.share(this.shareMsg, 'Triplanco', 'https://play.google.com/store/apps/details?id=io.ionic.triplanco&hl=en')
       .then((entries) => {
         console.log('success ' + JSON.stringify(entries));
       })
@@ -227,10 +229,30 @@ export class AppComponent implements OnInit {
   // App rating
   showRatePrompt() {
     if (this.platform.is('cordova')) {
+      console.log(`if cordova call app rating >>>>>`);
       this.appRate.preferences.storeAppURL = {
+        ios: 'io.ionic.triplanco',
         android: 'market://details?id=io.ionic.triplanco'
       };
       this.appRate.promptForRating(true);
+    }
+  }
+
+  showRatePromptApple() {
+    if (this.platform.is('cordova')) {
+      console.log(`app rate prompt for app >>>>>`);
+      // or, override the whole preferences object
+      this.appRate.preferences = {
+        usesUntilPrompt: 3,
+        storeAppURL: {
+          ios: 'io.ionic.triplanco',
+          android: 'market://details?id=io.ionic.triplanco'
+        }
+      }
+      this.appRate.promptForRating(false);
+      // if(this.appRate.preferences){
+      //   this.appRate.preferences.usesUntilPrompt -= 1;
+      // }
     }
   }
 
@@ -270,8 +292,8 @@ export class AppComponent implements OnInit {
 
   // user logout and navigate to welcome page
   async logOut() {
-    this.spinnerDialog.show('Triplanco', 'Logout..', false);
-    this.authProvider.offlineStatuss().then(() => {
+    await this.spinnerDialog.show('Triplanco', 'Logout..', false);
+    await this.authProvider.offlineStatuss().then(() => {
       this.authProvider.logOut().then(() => {
         window.localStorage.clear();
         this.spinnerDialog.hide();
