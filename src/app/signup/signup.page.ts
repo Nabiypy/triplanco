@@ -173,7 +173,8 @@ export class SignupPage implements OnInit {
                 notifications: true,
                 sound: true,
                 distance: '',
-                Photo: this.userProfile.photoURL
+                Photo: this.userProfile.photoURL,
+                Mobile: this.userProfile.phoneNumber
               })
               .then(() => {
                 this.chatProvider.getLocation().then(data => {
@@ -197,10 +198,14 @@ export class SignupPage implements OnInit {
           })
           .catch(error => {
             console.log('Firebase failure: ' + JSON.stringify(error));
+            const firebaseFacebookError = error;
+						this.showToast(firebaseFacebookError);
           });
       })
       .catch(error => {
-        console.log(error);
+        console.log("Error connecting to Facebook Auth ===> ",error);
+        const FacebookError = error;
+				this.showToast(FacebookError);
       });
   }
 }

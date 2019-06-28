@@ -47,13 +47,13 @@
     <ion-grid>
         <ion-row>
             <ion-col>
-                <ion-button color="primary" expand="full">
+                <ion-button color="primary" expand="full" (click)="browserService.openFacebookPageUrl()">
                     <ion-icon name="logo-facebook" slot="start"></ion-icon>
                     Facebook
                 </ion-button>
             </ion-col>
             <ion-col>
-                <ion-button color="warning" expand="full">
+                <ion-button color="warning" expand="full" (click)="browserService.openInstagramPageUrl()">
                     <ion-icon name="logo-instagram" slot="start"></ion-icon>
                     Instagram
                 </ion-button>

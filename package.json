@@ -25,7 +25,7 @@
         "@ionic-native/camera": "^5.3.0",
         "@ionic-native/core": "^5.0.0",
         "@ionic-native/document-viewer": "^5.4.0",
-        "@ionic-native/facebook": "^5.4.0",
+        "@ionic-native/facebook": "^5.8.0",
         "@ionic-native/fcm": "^5.6.0",
         "@ionic-native/file": "^5.3.0",
         "@ionic-native/file-chooser": "^5.4.0",
@@ -55,7 +55,7 @@
         "cordova-plugin-device": "^2.0.2",
         "cordova-plugin-dialogs": "2.0.1",
         "cordova-plugin-document-viewer": "0.9.10",
-        "cordova-plugin-facebook4": "^3.2.0",
+        "cordova-plugin-facebook4": "3.2.0",
         "cordova-plugin-fcm-with-dependecy-updated": "2.4.0",
         "cordova-plugin-file": "6.0.1",
         "cordova-plugin-filechooser": "1.2.0",
@@ -138,11 +138,6 @@
             "cordova-plugin-vibration": {},
             "cordova-plugin-fcm-with-dependecy-updated": {},
             "cordova-plugin-nativeaudio": {},
-            "cordova-plugin-facebook4": {
-                "APP_ID": "929208620746703",
-                "APP_NAME": "Triplanco",
-                "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0"
-            },
             "cordova-plugin-filechooser": {},
             "cordova-plugin-filepath": {},
             "cordova-plugin-document-viewer": {},
@@ -154,7 +149,12 @@
             "cordova-plugin-media-capture": {},
             "cordova-plugin-streaming-media": {},
             "cordova-plugin-video-editor": {},
-            "cordova-plugin-inappbrowser": {}
+            "cordova-plugin-inappbrowser": {},
+            "cordova-plugin-facebook4": {
+                "APP_ID": "929208620746703",
+                "APP_NAME": "Triplanco",
+                "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0"
+            }
         },
         "platforms": [
             "android",

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.triplanco" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.ionic.triplanco" version="2.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Triplanco</name>
     <description>Flight and Hotel booking app for Android and iOS plaform.</description>
     <author email="support@triplanco.com" href="https://triplanco.com/">Triplanco Team</author>
@@ -91,11 +91,6 @@
     <plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <plugin name="cordova-plugin-facebook4" spec="^3.1.0">
-        <variable name="APP_ID" value="929208620746703" />
-        <variable name="APP_NAME" value="Triplanco" />
-        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
-    </plugin>
     <plugin name="cordova-plugin-camera" spec="~4.0.3" />
     <plugin name="cordova-plugin-native-spinner" spec="~1.1.3" />
     <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />
@@ -123,6 +118,11 @@
     <plugin name="cordova-plugin-media-capture" spec="~3.0.2" />
     <plugin name="cordova-plugin-streaming-media" spec="~2.2.0" />
     <plugin name="cordova-plugin-video-editor" spec="~1.1.3" />
+    <plugin name="cordova-plugin-facebook4" spec="^3.1.0">
+        <variable name="APP_ID" value="929208620746703" />
+        <variable name="APP_NAME" value="Triplanco" />
+        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
+    </plugin>
     <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
         <string>Used to take pictures for profile image upload</string>
     </edit-config>

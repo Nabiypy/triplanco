@@ -167,7 +167,8 @@ export class LoginPage implements OnInit {
 							.update({
 								Name: this.userProfile.displayName,
 								Email: this.userProfile.email,
-								Photo: this.userProfile.photoURL
+								Photo: this.userProfile.photoURL,
+								Mobile: this.userProfile.phoneNumber
 							})
 							.then(() => {
 								this.router.navigateByUrl('home');
@@ -177,10 +178,15 @@ export class LoginPage implements OnInit {
 					})
 					.catch(error => {
 						console.log('Firebase failure: ' + JSON.stringify(error));
+						const firebaseFacebookError = error;
+						this.showToast(firebaseFacebookError);
 					});
 			})
 			.catch(error => {
 				console.log(error);
+				const FacebookError = error;
+				this.showToast(FacebookError);
+
 			});
 	}
 }

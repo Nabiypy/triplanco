@@ -16,7 +16,9 @@ export class InappbrowserService {
   public cruiseUrl = 'https://cruise-uigfglyiaw.now.sh';
   public otherDealsUrl = 'otherdeals-ugcqxgtgew.now.sh';
   public bestDealsUrl = 'https://bestdeals-tkiyhzbald.now.sh';
-
+  public facebookPageUrl = 'https://www.facebook.com/yourtriplanco/?__tn__=%2Cd%3C-R&eid=ARCBL2oekjoBPBkZOVW8GFIiK7VPRow_KPw_zJgdI6tzuwOTJvN60omZLHlYzZgsTrVWys4Ez2xhO-9L';
+  public instagramPageUrl = 'https://www.instagram.com/triplanco_ltd/?hl=en';
+  
   options: InAppBrowserOptions = {
     location: 'yes', // Or 'no'
     hidden: 'no', // Or  'yes'
@@ -72,4 +74,14 @@ export class InappbrowserService {
     const target = '_blank';
     const browser = this.iab.create(this.bestDealsUrl, target, this.options);
   }
+
+  openFacebookPageUrl() {
+    const target  = '_system';
+    const browser = this.iab.create(this.facebookPageUrl, target, this.options);
+  }
+  openInstagramPageUrl() {
+    const target  = '_system';
+    const browser = this.iab.create(this.instagramPageUrl, target, this.options);
+  }
+
 }

@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {ToastController, Platform, AlertController, LoadingController} from '@ionic/angular';
-import {Facebook} from '@ionic-native/facebook/ngx';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastController, Platform, AlertController, LoadingController } from '@ionic/angular';
+import { Facebook } from '@ionic-native/facebook/ngx';
 import * as firebase from 'firebase/app';
-import {AuthProvider} from '../provider/auth';
-import {AngularFireDatabase} from 'angularfire2/database';
-import {ChatProvider} from '../provider/chat';
-import {GeoFire} from 'geofire';
-import {TranslateService} from '@ngx-translate/core';
-import {Storage} from '@ionic/storage';
-import {ConstantPool} from '@angular/compiler';
+import { AuthProvider } from '../provider/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { ChatProvider } from '../provider/chat';
+import { GeoFire } from 'geofire';
+import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage';
+import { ConstantPool } from '@angular/compiler';
 
 declare var window: any;
 
@@ -134,7 +134,8 @@ export class WelcomePage implements OnInit {
                         notifications: true,
                         sound: true,
                         distance: '',
-                        Photo: this.userProfile.photoURL
+                        Photo: this.userProfile.photoURL,
+                        Mobile: this.userProfile.phoneNumber
                     }).then(() => {
                         this.chatProvider.getLocation().then((data) => {
                             console.log('locationServices');
@@ -148,11 +149,15 @@ export class WelcomePage implements OnInit {
                         });
                     });
                 }).catch((error) => {
-                console.log('Firebase failure: ' + JSON.stringify(error));
-            });
+                    console.log('Firebase failure: ' + JSON.stringify(error));
+                    const firebaseFacebookError = error;
+                    this.showToast(firebaseFacebookError);
+                });
 
         }).catch((error) => {
-            console.log(error);
+            console.log('Error connecting to Facebook Auth ===> ', error);
+            const FacebookError = error;
+            this.showToast(FacebookError);
         });
     }
 
@@ -180,6 +185,8 @@ export class WelcomePage implements OnInit {
             window.localStorage.setItem('userid', this.authProvider.afAuth.auth.currentUser.uid);
         }).catch(error => {
             console.log('error sign as a guest ==>' + JSON.stringify(error));
+            const GuestLoginError = error;
+            this.showToast(GuestLoginError);
         });
     }
 
